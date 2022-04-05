@@ -16,10 +16,6 @@ def folders_create(folder_path:str):
 def user_input():
     try:
         period = int(input("Jakiego miesiąca dotyczy plik "))
-    except ValueError:
-        print("To nie była liczba [1,2 ...] Podaj jeszcze raz")
-        user_input()
-    try:
         acc_document_nr = int(input("Pod jakim numerem DW, pozostanie zaimportowany pierwszy plik "))
     except ValueError:
         print("To nie była liczba [1,2 ...] Podaj jeszcze raz")

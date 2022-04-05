@@ -33,18 +33,22 @@ class DataframefromExcel():
 
     def import_dataframe(self):
         df = pd.read_excel(self.path, engine="openpyxl", header=1)
-        print(df)
         return df
 
     def df_for_concat(self, df = None):
         self.df = df
-
+        #change the sign of Zobowiazania column
         df["Zobowiązania"] = df["Zobowiązania"] * -1
+        #remove not doubling Kod kontr.
         filt = df["Kod kontr."].value_counts()
-        to_remove = filt[filt %2 !=0].index
+        to_remove = filt[filt % 2 != 0].index
         df = df[~self.df["Kod kontr."].isin(to_remove)]
+        #remove not doubling NR Urzadzenia
+        df['NR Urzadzenia'] = df['Symbol rozrachunku'].str[:15]
+        filt2 = df['NR Urzadzenia'].value_counts()
+        to_remove2 = filt2[filt2 %2 !=0].index
+        df = df[~df['NR Urzadzenia'].isin(to_remove2)]
+        #drop last row
         df.drop(df.tail(1).index,inplace=True)
-        print(self.df)
-        print(df)
         return df
 

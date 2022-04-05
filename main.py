@@ -27,7 +27,6 @@ def main():
         df = instance.df_for_concat(instance.import_dataframe())
         df_final = df_final_fun(df)
  # appending df_final to previously created excel export files
-        #Uwaga tutaj błąd dać do  góry file,export file
         with pd.ExcelWriter(f"{export_path}\\{export_file}",mode='a',engine='openpyxl',
         if_sheet_exists = 'overlay') as writer:
                 df_final.to_excel(writer, sheet_name='Sheet1', startrow = 4, index = False)
